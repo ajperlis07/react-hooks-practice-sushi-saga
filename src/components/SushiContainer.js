@@ -21,7 +21,7 @@ function SushiContainer({ api, setWallet, wallet, setNumEaten }) {
   const fourSushi = sushiArr.map((sushi) => {
     return (
       <Sushi
-        key={sushi.id}
+        id={sushi.id}
         name={sushi.name}
         image={sushi.img_url}
         price={sushi.price}

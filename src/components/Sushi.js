@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 
-function Sushi({ name, image, price, setWallet, wallet, setNumEaten, api }) {
+function Sushi({ name, image, price, setWallet, wallet, setNumEaten, api, id}) {
   const [isEaten, setIsEaten] = useState(false);
 
   useEffect(() => {
-    fetch(api, {
+    fetch(`${api}/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
