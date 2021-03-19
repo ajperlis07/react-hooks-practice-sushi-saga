@@ -1,20 +1,35 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
-function Sushi(props) {
+function Sushi({ name, image, price, setWallet, wallet, setNumEaten, api }) {
+  const [isEaten, setIsEaten] = useState(false);
+
+  useEffect(() => {
+    fetch(api, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        accept: "application/json",
+      },
+      body: JSON.stringify({ isEaten }),
+    });
+    console.log(isEaten);
+  }, [isEaten]);
+
+  function handleIsEatenClick() {
+    if (!isEaten && wallet >= price) {
+      setIsEaten(true);
+      setWallet((w) => w - price);
+      setNumEaten((n) => n + 1);
+    }
+  }
+
   return (
     <div className="sushi">
-      <div className="plate" onClick={/* Give me a callback! */ null}>
-        {/* Tell me if this sushi has been eaten! */}
-        {false ? null : (
-          <img
-            src={/* Give me an image source! */ null}
-            alt={/* Give me a name! */ "Sushi"}
-            width="100%"
-          />
-        )}
+      <div className="plate" onClick={handleIsEatenClick}>
+        {isEaten ? null : <img src={image} alt={name} width="100%" />}
       </div>
       <h4 className="sushi-details">
-        {/* Give me a name! */} - ${/* Give me a price! */}
+        {name} - ${price}
       </h4>
     </div>
   );
